@@ -12,7 +12,7 @@ int main()
     int i,j,k,a;
     
     a=2*n-2;
-    int mtr[20][20];
+    int mtr[a+1][a+1];
     
     for( k=0 ; k<=n ; k++){
         
