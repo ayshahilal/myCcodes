@@ -1,0 +1,71 @@
+// bubble sort in arrays with using function pointers
+
+#include <stdio.h>
+#include<stdlib.h>
+#include <string.h>
+void swap(int *ptr,int j){
+    
+    int temp;
+    temp=ptr[j];
+    ptr[j]=ptr[j+1];
+    ptr[j+1]=temp;
+    
+}
+
+void bubblesort( int *ptr,int n,void (*fp)(), int (*fp2)() ){
+    
+    int i,j;
+    for(i=0;i<n-1;i++){
+        for(j=0;j<n-i-1;j++){
+            if(fp2(ptr,j)){
+                fp(ptr,j);
+            }
+        }
+    }
+}
+
+void yazdir( int *list, int n ){
+    int i;
+    for(i=0;i<n;i++){
+        printf("%d \n",list[i]);
+    }
+    
+}
+int buyuktenkucuk(int *ptr,int j){
+    return ptr[j]<ptr[j+1];
+}
+
+int kucuktenbuyuk(int *ptr,int j){
+    return ptr[j]>ptr[j+1];
+}
+
+int main(){
+    int *list;
+    int i;
+    int n=5;
+    
+    int (*fp)();
+    int (*fp2)();
+    list=(int*)malloc(n*sizeof(int));
+    printf("Sayi dizisini olusturun");
+    
+    for(i=0;i<n;i++){
+        scanf("%d", &list[i]);
+    }
+    int secim;
+    
+    printf("Diziyi buyukten kucuge mi (0) kucukten buyuge mi?(1) ");
+    scanf("%d", &secim);
+    if(secim==0){
+        fp2=buyuktenkucuk;
+    }
+    else fp2=kucuktenbuyuk;
+    
+    fp=swap;
+    
+    bubblesort(list,n,fp,fp2);
+    yazdir(list,n);
+    
+    return 0;
+}
+
