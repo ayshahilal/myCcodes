@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct{
+    
+    char stdname[30];
+    char stdno[8];
+    
+}Student_info;
+
+void sortbyno(Student_info *dizi,int n){
+    int i,j;
+    long int first,second;
+    Student_info tmp;
+    for(i=0;i<n-1;i++){
+        for(j=0;j<n-i-1;j++){
+            first = atoll(dizi[j].stdno);
+            second = atoll(dizi[j+1].stdno);
+            if(first>second){
+                tmp=dizi[j];
+                dizi[j]=dizi[j+1];
+                dizi[j+1]=tmp;
+            }
+        }
+    }
+}
+
+int main(){
+    int j,n;
+    Student_info *dizi;
+    n=3;
+    dizi= (Student_info*)malloc(n*sizeof(Student_info));
+    if(dizi==NULL){
+        printf("Can not allocate memory for the array...\n");
+        exit(0);
+    }
+    
+    for(j=0;j<n;j++){
+        printf("enter the name of %d . student ", j+1);
+        scanf("%s", dizi[j].stdname);
+        printf("enter the no of %d . student ", j+1);
+        scanf("%s", dizi[j].stdno);
+    }
+    
+    sortbyno(dizi,n);
+    for(j=0;j<n;j++){
+        printf("%d . student : %s \t %s \n", j+1 ,dizi[j].stdname, dizi[j].stdno );
+        
+    }
+    
+    return 0;
+}
